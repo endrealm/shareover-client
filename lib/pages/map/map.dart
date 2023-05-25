@@ -5,13 +5,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 
 class MapWidget extends StatefulWidget {
-
-  final Function(Point?) onPlaceChange;
-
-  const MapWidget(this.onPlaceChange, {Key? key}) : super(key: key);
+  const MapWidget({Key? key}) : super(key: key);
 
   @override
   State<MapWidget> createState() => MapWidgetState();
@@ -21,7 +17,6 @@ class MapWidgetState extends State<MapWidget> {
   double INNER_RING = .7;
 
   late GoogleMapController controller;
-  late LocationData lastPos;
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +32,7 @@ class MapWidgetState extends State<MapWidget> {
       onMapCreated: (c) async {
         controller = c;
         controller.setMapStyle(await getJsonFile("assets/map_style.json"));
-        final location = await Location().getLocation();
-        controller.animateCamera(CameraUpdate.newLatLngZoom(LatLng(location.latitude!, location.longitude!), 15));
-
       },
-      onTap: (_) => widget.onPlaceChange(null),
     );
   }
 
