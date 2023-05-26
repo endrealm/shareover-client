@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shareover/utils/constants.dart';
+import 'package:shareover_api/api.dart';
 
 class SetupWidget extends StatefulWidget {
   const SetupWidget({Key? key}) : super(key: key);
@@ -12,10 +13,11 @@ class _SetupWidgetState extends State<SetupWidget> {
   late TextEditingController usernameController;
   late TextEditingController passwordController;
   late TextEditingController streetController;
-  late TextEditingController plzController;
+  late TextEditingController countryController;
   late TextEditingController cityController;
   bool isChecked = false;
   bool anythingEmpty = true;
+  late String locationString;
 
   @override
   void initState() {
@@ -24,7 +26,7 @@ class _SetupWidgetState extends State<SetupWidget> {
     usernameController = TextEditingController();
     passwordController = TextEditingController();
     streetController = TextEditingController();
-    plzController = TextEditingController();
+    countryController = TextEditingController();
     cityController = TextEditingController();
   }
 
@@ -34,7 +36,7 @@ class _SetupWidgetState extends State<SetupWidget> {
     usernameController.dispose();
     passwordController.dispose();
     streetController.dispose();
-    plzController.dispose();
+    countryController.dispose();
     cityController.dispose();
   }
 
@@ -45,8 +47,7 @@ class _SetupWidgetState extends State<SetupWidget> {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-        child:
-        Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Container(
               padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
               child: Align(
@@ -86,22 +87,22 @@ class _SetupWidgetState extends State<SetupWidget> {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              TextFormField(
-                  keyboardType: TextInputType.streetAddress,
-                  controller: streetController,
-                  decoration: const InputDecoration(
-                    labelText: "Street",
-                    border: OutlineInputBorder(),
-                  )),
+               TextFormField(
+                        keyboardType: TextInputType.streetAddress,
+                        controller: streetController,
+                        decoration: const InputDecoration(
+                          labelText: "Street",
+                          border: OutlineInputBorder(),
+                        )),
               Container(height: 5),
               Row(
                 children: [
                   Expanded(
                     child: TextFormField(
-                      keyboardType: TextInputType.number,
-                      controller: plzController,
+                      keyboardType: TextInputType.text,
+                      controller: cityController,
                       decoration: const InputDecoration(
-                        labelText: "City code",
+                        labelText: "City",
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -109,9 +110,9 @@ class _SetupWidgetState extends State<SetupWidget> {
                   Expanded(
                       child: TextFormField(
                     keyboardType: TextInputType.text,
-                    controller: cityController,
+                    controller: countryController,
                     decoration: const InputDecoration(
-                      labelText: "City",
+                      labelText: "Country",
                       border: OutlineInputBorder(),
                     ),
                   ))
@@ -141,22 +142,46 @@ class _SetupWidgetState extends State<SetupWidget> {
               style: ButtonStyle(
                   foregroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.background),
                   backgroundColor: isChecked ? MaterialStateProperty.all(Colors.purple) : MaterialStateProperty.all(Theme.of(context).colorScheme.background)),
-              onPressed: () {setState(() {
-                checkInputs();
-                isChecked = !anythingEmpty;
-              });}, child: const Text("Submit"))
+              onPressed: () {
+                setState(() {
+                  createAccount();
+                });
+              },
+              child: const Text("Submit"))
         ]),
       ),
     );
   }
+
+  void createAccount() {
+    formatLocation();
+    UserApi(
+        ApiClient(
+            basePath: "https://seeker.endrealm.net"
+        )
+    ).createUser(
+        CreateUserRequest(
+            password: passwordController.value.text,
+            username: usernameController.value.text,
+            location: locationString
+        )
+    );
+    checkInputs();
+  }
+
+  void formatLocation() {
+    locationString = "${countryController.value.text}, ${streetController.value.text}, ${cityController.value.text}";
+  }
+
+
 
   void checkInputs() {
     if (streetController.value.text.isNotEmpty &&
         cityController.value.text.isNotEmpty &&
         usernameController.value.text.isNotEmpty &&
         passwordController.value.text.isNotEmpty &&
-        plzController.value.text.isNotEmpty) {
-        anythingEmpty = false;
+        countryController.value.text.isNotEmpty) {
+      anythingEmpty = false;
     } else {
       anythingEmpty = true;
       isChecked = false;

@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:shareover/components/offer.dart';
 import 'package:shareover_api/api.dart';
+
 
 class NotificationWidget extends StatelessWidget {
   final VoidCallback close;
@@ -42,50 +44,17 @@ class NotificationList extends StatefulWidget {
 class _NotificationListState extends State<NotificationList> {
   final List<Offer> offerList = [];
 
+
+
   @override
   void initState() {
     super.initState();
+    var notifications = DefaultApi().notificationGet();
 
-    offerList.add(Offer(
-        id: "Order",
-        ownerId: "123",
-        units: 50,
-        categoryId: "meat",
-        product: "Johannes Jumpertz",
-        from: "12:00",
-        to: "13:00"));
-    offerList.add(Offer(
-        id: "Order",
-        ownerId: "123",
-        units: 50,
-        categoryId: "meat",
-        product: "Joshua",
-        from: "12:00",
-        to: "13:00"));
-    offerList.add(Offer(
-        id: "Order",
-        ownerId: "123",
-        units: 100,
-        categoryId: "meat",
-        product: "Human",
-        from: "12:00",
-        to: "13:00"));
-    offerList.add(Offer(
-        id: "Order",
-        ownerId: "123",
-        units: 10,
-        categoryId: "bread",
-        product: "Toast",
-        from: "12:00",
-        to: "13:00"));
-    offerList.add(Offer(
-        id: "Order",
-        ownerId: "123",
-        units: 10,
-        categoryId: "bread",
-        product: "Toast",
-        from: "12:00",
-        to: "13:00"));
+    if (notifications.isDefinedAndNotNull) {
+      offerList.addAll(notifications as Iterable<Offer>);
+    }
+
     offerList.add(Offer(
         id: "Order",
         ownerId: "123",

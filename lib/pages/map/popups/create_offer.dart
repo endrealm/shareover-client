@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:shareover/model/food_category.dart';
+import 'package:shareover_api/api.dart';
 
 class CreateOfferWidget extends StatelessWidget {
   final VoidCallback close;
@@ -159,6 +160,7 @@ class _CreateFormState extends State<CreateForm> {
             child: ElevatedButton(
                 onPressed: () {
                   if (!isDateValid) return;
+                  createOffer();
                 },
                 child: const Text("Submit")),
           )
@@ -166,6 +168,23 @@ class _CreateFormState extends State<CreateForm> {
       ],
     );
   }
+
+
+
+
+  void createOffer() {
+
+  }
+
+
+
+
+
+
+
+
+
+
 }
 
 class _FormattedDate extends StatelessWidget {
