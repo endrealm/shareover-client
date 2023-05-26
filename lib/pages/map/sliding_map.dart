@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shareover/pages/map/map.dart';
+import 'package:shareover_api/api.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'map_overlay.dart';
@@ -16,6 +17,7 @@ class SlidingMapWidget extends StatefulWidget {
 
 class _SlidingMapWidgetState extends State<SlidingMapWidget> {
   final panelController = PanelController();
+  OfferLocation? location;
 
   var roundBorder = true;
 
@@ -27,21 +29,27 @@ class _SlidingMapWidgetState extends State<SlidingMapWidget> {
       body: SlidingUpPanel(
         controller: panelController,
         maxHeight: panelHeightOpen,
-        minHeight: panelHeightClosed,
+        minHeight: location != null ? panelHeightClosed : 0,
         parallaxEnabled: true,
         parallaxOffset: 0.1,
         body: Stack(
           children: [
-            const MapWidget(),
+            MapWidget(onPlaceChange: (loc) {
+              setState(() {
+                location = loc;
+              });
+            }),
             MapOverlayWidget(
               openPopup: widget.openPopup,
             ),
           ],
         ),
-        panelBuilder: (controller) => PanelWidget(
-          controller: controller,
-          panelController: panelController,
-        ),
+        panelBuilder: (controller) => location == null
+            ? Container()
+            : PanelWidget(
+                controller: controller,
+                panelController: panelController,
+              ),
         borderRadius: roundBorder
             ? const BorderRadius.vertical(top: Radius.circular(30))
             : BorderRadius.zero,

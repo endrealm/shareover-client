@@ -20,26 +20,28 @@ class CreateOfferWidget extends StatelessWidget {
               .of(context)
               .dialogBackgroundColor,
           child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                FloatingActionButton(
-                  onPressed: close,
-                  backgroundColor: Colors.green,
-                  child: const Icon(Icons.close),
-                ),
-              ],
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: close,
+              backgroundColor: Colors.green,
+              child: const Icon(Icons.close),
             ),
-            const Expanded(
-              child: SizedBox.expand(child: CreateForm()),
-            ),
-          ]),
+          ],
+        ),
+        Expanded(
+          child: SizedBox.expand(child: CreateForm(close: close)),
+        ),
+      ]),
         ));
   }
 }
 
 class CreateForm extends StatefulWidget {
-  const CreateForm({Key? key}) : super(key: key);
+  final VoidCallback close;
+
+  const CreateForm({Key? key, required this.close}) : super(key: key);
 
   @override
   State<CreateForm> createState() => _CreateFormState();
@@ -177,20 +179,20 @@ class _CreateFormState extends State<CreateForm> {
 
 
   void createOffer() {
-    APIService
-        .of(context)
-        .offerApi
-        .offerPut(offerPutRequest: OfferPutRequest(
-          units: int.parse(_amountController.value.text),
-          categoryId: selectedCategory,
-          product: _controller.value.text,
-          from: from.toString(),
-          to: to.toString(),
-        )
-    );
+    try {
+      APIService.of(context).offerApi.offerPut(
+              offerPutRequest: OfferPutRequest(
+            units: int.parse(_amountController.text),
+            categoryId: selectedCategory,
+            product: _controller.value.text,
+            from: from.toString(),
+            to: to.toString(),
+          ));
+    } catch (e) {
+      widget.close();
+      rethrow;
+    }
   }
-
-
 }
 
 class _FormattedDate extends StatelessWidget {

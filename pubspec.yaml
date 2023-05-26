@@ -15,6 +15,11 @@ dependencies:
   http: ^0.13.0
   shared_preferences: ^2.0.15
   google_maps_flutter: ^2.1.8
+  location:
+    git:
+      url: https://github.com/781flyingdutchman/flutterlocation.git
+      ref: V4
+      path: packages/location
   sliding_up_panel: ^2.0.0+1
   openapi_generator_annotations: ^4.10.0
   image: ^4.0.17

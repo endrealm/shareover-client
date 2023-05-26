@@ -1,10 +1,47 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:shareover/pages/map/router.dart';
 import 'package:shareover/pages/setup/setup.dart';
 import 'package:shareover/services/api_service.dart';
 
-void main() {
+import 'no_location.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (!await enableLocationServices()) {
+    log("Failed to activate location service");
+    runApp(const NoLocationService());
+    return;
+  }
+
   runApp(const MyApp());
+}
+
+Future<bool> enableLocationServices() async {
+  Location location = Location();
+
+  bool serviceEnabled;
+  PermissionStatus permissionGranted;
+
+  serviceEnabled = await location.serviceEnabled();
+  if (!serviceEnabled) {
+    serviceEnabled = await location.requestService();
+    if (!serviceEnabled) {
+      return false;
+    }
+  }
+
+  permissionGranted = await location.hasPermission();
+  if (permissionGranted == PermissionStatus.denied) {
+    permissionGranted = await location.requestPermission();
+    if (permissionGranted != PermissionStatus.granted) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 class MyApp extends StatelessWidget {
