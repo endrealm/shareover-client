@@ -1,30 +1,17 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ConfigFileManager {
   Future<String> loadConfig() async {
-    try {
-      File file = File('config');
-      if (await file.exists()) {
-        return await file.readAsString();
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print('Fehler beim Laden der Datei: $e');
-      }
-    }
-    return "";
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs.getString("token") ?? "";
   }
 
   Future<void> writeConfig(String content) async {
-    try {
-      File file = File('config');
-      await file.writeAsString(content);
-    } catch (e) {
-      if (kDebugMode) {
-        print('Fehler beim Schreiben in die Datei: $e');
-      }
-    }
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString("token", content);
   }
 }

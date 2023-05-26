@@ -1,5 +1,10 @@
+import 'dart:developer';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:shareover_api/api.dart';
+
+import 'config_file_manager.dart';
 
 class APIService extends InheritedWidget {
   final Function(String) setToken;
@@ -48,18 +53,28 @@ class _ApiServiceWrapperState extends State<ApiServiceWrapper> {
   var auth = HttpBearerAuth();
   var authorized = false;
 
-  setToken(String token) {
+  setToken(String token, {bool save = true}) {
     setState(() {
       auth.accessToken = token;
       authorized = true;
-      print("Set token");
+      if(save) {
+        ConfigFileManager().writeConfig(token).then((_) => print("Loaded"));
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    ConfigFileManager().loadConfig().then((value) {
+      print(value + "_> LOADED");
+      if(value != "") setToken(value, save: false);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print("Render token  " + authorized.toString());
-
     return APIService(
       basePath: "https://seeker.endrealm.net",
       auth: auth,
