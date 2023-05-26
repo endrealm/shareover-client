@@ -97,13 +97,9 @@ class OfferLocation {
       }());
 
       return OfferLocation(
-        id: mapValueOfType<String>(json, r'id'),
-        lat: json[r'lat'] == null
-            ? null
-            : num.parse(json[r'lat'].toString()),
-        lon: json[r'lon'] == null
-            ? null
-            : num.parse(json[r'lon'].toString()),
+        id: mapValueOfType<int>(json, r'id').toString(),
+        lat: json[r'lat'] == null ? null : num.parse(json[r'lat'].toString()),
+        lon: json[r'lon'] == null ? null : num.parse(json[r'lon'].toString()),
       );
     }
     return null;

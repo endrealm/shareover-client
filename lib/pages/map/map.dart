@@ -27,6 +27,7 @@ class MapWidgetState extends State<MapWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var apiService = APIService.of(context);
     return GoogleMap(
       mapType: MapType.normal,
       zoomControlsEnabled: false,
@@ -43,13 +44,13 @@ class MapWidgetState extends State<MapWidget> {
         final location = await Location().getLocation();
         controller.animateCamera(CameraUpdate.newLatLngZoom(
             LatLng(location.latitude!, location.longitude!), 15));
-        final res = await APIService.of(context)
-            .offerApi
+        final res = await apiService.offerApi
             .offerListNearbyGet(location.latitude!, location.longitude!);
         setMarkers(res!);
 
         Location().onLocationChanged.listen(onLocationChange);
       },
+      markers: markers,
       onTap: (_) => widget.onPlaceChange(null),
     );
   }
@@ -77,7 +78,6 @@ class MapWidgetState extends State<MapWidget> {
   }
 
   Future<Marker> pointToMarker(OfferLocation offerLocation) async {
-    print(offerLocation);
     return Marker(
         markerId: MarkerId(offerLocation.id!),
         position: LatLng(
