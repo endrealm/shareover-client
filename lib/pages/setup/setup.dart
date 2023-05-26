@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shareover/utils/constants.dart';
 import 'package:shareover_api/api.dart';
 
+import '../../services/api_service.dart';
+
 class SetupWidget extends StatefulWidget {
   const SetupWidget({Key? key}) : super(key: key);
 
@@ -155,7 +157,7 @@ class _SetupWidgetState extends State<SetupWidget> {
 
   void createAccount() {
     formatLocation();
-    UserApi(
+    APIService.of(context).setToken(UserApi(
         ApiClient(
             basePath: "https://seeker.endrealm.net"
         )
@@ -165,7 +167,7 @@ class _SetupWidgetState extends State<SetupWidget> {
             username: usernameController.value.text,
             location: locationString
         )
-    );
+    ) as String);
     checkInputs();
   }
 

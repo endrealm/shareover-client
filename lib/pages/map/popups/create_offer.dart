@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:shareover/model/food_category.dart';
+import 'package:shareover/services/api_service.dart';
 import 'package:shareover_api/api.dart';
 
 class CreateOfferWidget extends StatelessWidget {
@@ -15,7 +16,9 @@ class CreateOfferWidget extends StatelessWidget {
     return SizedBox.expand(
         child: Container(
           padding: const EdgeInsets.all(8),
-          color: Theme.of(context).dialogBackgroundColor,
+          color: Theme
+              .of(context)
+              .dialogBackgroundColor,
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -153,7 +156,10 @@ class _CreateFormState extends State<CreateForm> {
         const Spacer(),
         Text(
           isDateValid ? "" : "From needs to be before to",
-          style: TextStyle(color: Theme.of(context).colorScheme.error),
+          style: TextStyle(color: Theme
+              .of(context)
+              .colorScheme
+              .error),
         ),
         Row(children: [
           Expanded(
@@ -170,19 +176,19 @@ class _CreateFormState extends State<CreateForm> {
   }
 
 
-
-
   void createOffer() {
-
+    APIService
+        .of(context)
+        .offerApi
+        .offerPut(offerPutRequest: OfferPutRequest(
+          units: int.parse(_amountController.value.text),
+          categoryId: selectedCategory,
+          product: _controller.value.text,
+          from: from.toString(),
+          to: to.toString(),
+        )
+    );
   }
-
-
-
-
-
-
-
-
 
 
 }

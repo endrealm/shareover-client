@@ -1,6 +1,9 @@
 
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
 import 'package:shareover/components/offer.dart';
+import 'package:shareover/services/api_service.dart';
 import 'package:shareover/pages/map/router.dart';
 import 'package:shareover_api/api.dart';
 
@@ -59,28 +62,28 @@ class _NotificationListState extends State<NotificationList> {
   @override
   void initState() {
     super.initState();
-    var notifications = DefaultApi().notificationGet();
+    var notifications = APIService.of(context).notificationApi.notificationGet(since: "12:00");
 
     if (notifications.isDefinedAndNotNull) {
       offerList.addAll(notifications as Iterable<Offer>);
+    } else {
+      offerList.add(Offer(
+          id: "Order",
+          ownerId: "123",
+          units: 10,
+          categoryId: "bread",
+          product: "Toast",
+          from: "12:00",
+          to: "13:00"));
+      offerList.add(Offer(
+          id: "Order",
+          ownerId: "123",
+          units: 10,
+          categoryId: "bread",
+          product: "Toast",
+          from: "12:00",
+          to: "13:00"));
     }
-
-    offerList.add(Offer(
-        id: "Order",
-        ownerId: "123",
-        units: 10,
-        categoryId: "bread",
-        product: "Toast",
-        from: "12:00",
-        to: "13:00"));
-    offerList.add(Offer(
-        id: "Order",
-        ownerId: "123",
-        units: 10,
-        categoryId: "bread",
-        product: "Toast",
-        from: "12:00",
-        to: "13:00"));
   }
 
   @override

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shareover/pages/map/router.dart';
 import 'package:shareover/pages/setup/setup.dart';
 import 'package:shareover/services/api_service.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(SetupWidget());
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +34,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const ApiServiceWrapper(child: SetupWidget()),
+      home: ApiServiceWrapper(
+        child: APIService.of(context).authorized ? const RouterWidget() : const SetupWidget(),
+      ),
     );
   }
 }
