@@ -10,32 +10,36 @@ class MapOverlayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
-        child: Column(
-      children: [
-        Row(
-          children: [
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.lightGreen),
+      child: Column(
+        children: [
+          Container(
+            height: 25,
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.lightGreen),
+                ),
+                onPressed: () {
+                  openPopup?.call(PopupType.createOffer);
+                },
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
               ),
-              onPressed: () {
-                openPopup?.call(PopupType.createOffer);
-              },
-              child: const Icon(
-                Icons.add,
-                color: Colors.white,
+              const Spacer(),
+              ElevatedButton(
+                onPressed: () {
+                  openPopup?.call(PopupType.notification);
+                },
+                child: const Icon(Icons.notifications),
               ),
-            ),
-            const Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                openPopup?.call(PopupType.notification);
-              },
-              child: const Icon(Icons.notifications),
-            ),
-          ],
-        )
-      ],
-    ));
+            ],
+          )
+        ],
+      ),
+    );
   }
 }

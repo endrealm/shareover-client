@@ -20,6 +20,9 @@ class NotificationWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       color: Theme.of(context).dialogBackgroundColor,
       child: Column(children: [
+        Container(
+          height: 25,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -63,7 +66,6 @@ class _NotificationListState extends State<NotificationList> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
 
 
@@ -93,7 +95,9 @@ class _NotificationListState extends State<NotificationList> {
         onDelete: () {
           setState(() {
             offerList.remove(offerList[index]);
-            // TODO remove from server
+            APIService.of(context)
+                .notificationApi
+                .notificationIdDelete(offerList[index].id!);
           });
         },
       ),
