@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shareover/pages/map/map.dart';
 import 'package:shareover/pages/map/popups/create_offer.dart';
+import 'package:shareover/pages/map/popups/notification.dart';
+import 'package:shareover/pages/map/popups/subscription/subscription.dart';
 
 import 'map_overlay.dart';
 
@@ -26,7 +28,7 @@ class _RouterWidgetState extends State<RouterWidget> {
         MapOverlayWidget(
           openPopup: (type) {
             setState(() {
-              _popupType = PopupType.createOffer;
+              _popupType = type;
             });
           },
         ),
@@ -42,9 +44,18 @@ class _RouterWidgetState extends State<RouterWidget> {
   }
 
   Widget getFromType(PopupType popupType) {
-
-    if(popupType == PopupType.createOffer) {
+    if (popupType == PopupType.createOffer) {
       return CreateOfferWidget(
+        close: closePopup,
+      );
+    }
+    if (popupType == PopupType.notification) {
+      return NotificationWidget(
+        close: closePopup,
+      );
+    }
+    if (popupType == PopupType.subscription) {
+      return SubscriptionWidget(
         close: closePopup,
       );
     }
