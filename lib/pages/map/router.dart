@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:shareover/pages/map/map.dart';
 import 'package:shareover/pages/map/popups/create_offer.dart';
 import 'package:shareover/pages/map/popups/notification.dart';
 import 'package:shareover/pages/map/popups/subscription/subscription.dart';
+import 'package:shareover/pages/map/sliding_map.dart';
 
 import 'map_overlay.dart';
 
@@ -24,7 +24,7 @@ class _RouterWidgetState extends State<RouterWidget> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        const MapWidget(),
+        const SlidingMapWidget(),
         MapOverlayWidget(
           openPopup: (type) {
             setState(() {
