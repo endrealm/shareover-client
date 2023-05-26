@@ -46,12 +46,12 @@ import 'package:shareover_api/api.dart';
 // String yourTokenGeneratorFunction() { ... }
 //defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = DefaultApi();
+final api_instance = NotificationApi();
 
 try {
     api_instance.notificationDelete();
 } catch (e) {
-    print('Exception when calling DefaultApi->notificationDelete: $e\n');
+    print('Exception when calling NotificationApi->notificationDelete: $e\n');
 }
 
 ```
@@ -62,10 +62,10 @@ All URIs are relative to *http://localhost:3000*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**notificationDelete**](doc\/DefaultApi.md#notificationdelete) | **DELETE** /notification | 
-*DefaultApi* | [**notificationGet**](doc\/DefaultApi.md#notificationget) | **GET** /notification | 
-*DefaultApi* | [**notificationIdDelete**](doc\/DefaultApi.md#notificationiddelete) | **DELETE** /notification/{id} | 
-*DefaultApi* | [**notificationPost**](doc\/DefaultApi.md#notificationpost) | **POST** /notification | 
+*NotificationApi* | [**notificationDelete**](doc\/NotificationApi.md#notificationdelete) | **DELETE** /notification | 
+*NotificationApi* | [**notificationGet**](doc\/NotificationApi.md#notificationget) | **GET** /notification | 
+*NotificationApi* | [**notificationIdDelete**](doc\/NotificationApi.md#notificationiddelete) | **DELETE** /notification/{id} | 
+*NotificationApi* | [**notificationPost**](doc\/NotificationApi.md#notificationpost) | **POST** /notification | 
 *OfferApi* | [**offerIdPost**](doc\/OfferApi.md#offeridpost) | **POST** /offer/{id} | Claim offer parts
 *OfferApi* | [**offerListIdGet**](doc\/OfferApi.md#offerlistidget) | **GET** /offer/list/{id} | Gets all open offers for a user
 *OfferApi* | [**offerListNearbyGet**](doc\/OfferApi.md#offerlistnearbyget) | **GET** /offer/list/nearby | Get all offers near to current location

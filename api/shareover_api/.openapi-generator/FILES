@@ -4,7 +4,7 @@
 README.md
 analysis_options.yaml
 doc/CreateUserRequest.md
-doc/DefaultApi.md
+doc/NotificationApi.md
 doc/NotificationPostRequest.md
 doc/Offer.md
 doc/OfferApi.md
@@ -13,7 +13,7 @@ doc/OfferPutRequest.md
 doc/UserApi.md
 git_push.sh
 lib/api.dart
-lib/api/default_api.dart
+lib/api/notification_api.dart
 lib/api/offer_api.dart
 lib/api/user_api.dart
 lib/api_client.dart
@@ -31,7 +31,7 @@ lib/model/offer_location.dart
 lib/model/offer_put_request.dart
 pubspec.yaml
 test/create_user_request_test.dart
-test/default_api_test.dart
+test/notification_api_test.dart
 test/notification_post_request_test.dart
 test/offer_api_test.dart
 test/offer_location_test.dart

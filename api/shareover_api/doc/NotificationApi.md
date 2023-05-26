@@ -1,4 +1,4 @@
-# shareover_api.api.DefaultApi
+# shareover_api.api.NotificationApi
 
 ## Load the API package
 ```dart
@@ -9,10 +9,10 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**notificationDelete**](DefaultApi.md#notificationdelete) | **DELETE** /notification | 
-[**notificationGet**](DefaultApi.md#notificationget) | **GET** /notification | 
-[**notificationIdDelete**](DefaultApi.md#notificationiddelete) | **DELETE** /notification/{id} | 
-[**notificationPost**](DefaultApi.md#notificationpost) | **POST** /notification | 
+[**notificationDelete**](NotificationApi.md#notificationdelete) | **DELETE** /notification | 
+[**notificationGet**](NotificationApi.md#notificationget) | **GET** /notification | 
+[**notificationIdDelete**](NotificationApi.md#notificationiddelete) | **DELETE** /notification/{id} | 
+[**notificationPost**](NotificationApi.md#notificationpost) | **POST** /notification | 
 
 
 # **notificationDelete**
@@ -32,12 +32,12 @@ import 'package:shareover_api/api.dart';
 // String yourTokenGeneratorFunction() { ... }
 //defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = DefaultApi();
+final api_instance = NotificationApi();
 
 try {
     api_instance.notificationDelete();
 } catch (e) {
-    print('Exception when calling DefaultApi->notificationDelete: $e\n');
+    print('Exception when calling NotificationApi->notificationDelete: $e\n');
 }
 ```
 
@@ -76,14 +76,14 @@ import 'package:shareover_api/api.dart';
 // String yourTokenGeneratorFunction() { ... }
 //defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = DefaultApi();
+final api_instance = NotificationApi();
 final since = since_example; // String | 
 
 try {
     final result = api_instance.notificationGet(since);
     print(result);
 } catch (e) {
-    print('Exception when calling DefaultApi->notificationGet: $e\n');
+    print('Exception when calling NotificationApi->notificationGet: $e\n');
 }
 ```
 
@@ -125,13 +125,13 @@ import 'package:shareover_api/api.dart';
 // String yourTokenGeneratorFunction() { ... }
 //defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = DefaultApi();
+final api_instance = NotificationApi();
 final id = id_example; // String | 
 
 try {
     api_instance.notificationIdDelete(id);
 } catch (e) {
-    print('Exception when calling DefaultApi->notificationIdDelete: $e\n');
+    print('Exception when calling NotificationApi->notificationIdDelete: $e\n');
 }
 ```
 
@@ -173,13 +173,13 @@ import 'package:shareover_api/api.dart';
 // String yourTokenGeneratorFunction() { ... }
 //defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
-final api_instance = DefaultApi();
+final api_instance = NotificationApi();
 final notificationPostRequest = NotificationPostRequest(); // NotificationPostRequest | 
 
 try {
     api_instance.notificationPost(notificationPostRequest);
 } catch (e) {
-    print('Exception when calling DefaultApi->notificationPost: $e\n');
+    print('Exception when calling NotificationApi->notificationPost: $e\n');
 }
 ```
 
