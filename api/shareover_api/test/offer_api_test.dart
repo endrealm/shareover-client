@@ -38,7 +38,7 @@ void main() {
       // TODO
     });
 
-    //Future offerPut({ OfferPutRequest offerPutRequest }) async
+    //Future<num> offerPut({ OfferPutRequest offerPutRequest }) async
     test('test offerPut', () async {
       // TODO
     });

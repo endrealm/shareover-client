@@ -12,11 +12,11 @@ import 'package:shareover_api/api.dart';
 import 'package:test/test.dart';
 
 
-/// tests for DefaultApi
+/// tests for NotificationApi
 void main() {
-  // final instance = DefaultApi();
+  // final instance = NotificationApi();
 
-  group('tests for DefaultApi', () {
+  group('tests for NotificationApi', () {
     // Delete all notifications
     //
     //Future notificationDelete() async
