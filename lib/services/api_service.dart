@@ -58,7 +58,7 @@ class _ApiServiceWrapperState extends State<ApiServiceWrapper> {
       auth.accessToken = token;
       authorized = true;
       if(save) {
-        ConfigFileManager().writeConfig(token).then((_) => print("Loaded"));
+        ConfigFileManager().writeConfig(token).then((_) {});
       }
     });
   }
@@ -68,7 +68,6 @@ class _ApiServiceWrapperState extends State<ApiServiceWrapper> {
     super.initState();
 
     ConfigFileManager().loadConfig().then((value) {
-      print(value + "_> LOADED");
       if(value != "") setToken(value, save: false);
     });
   }
