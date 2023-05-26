@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shareover/components/offer.dart';
 import 'package:shareover_api/api.dart';
 
 import '../../services/api_service.dart';
@@ -29,6 +30,13 @@ class _ShopViewState extends State<ShopView> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ListView.separated(
+      itemCount: offers.length,
+      itemBuilder: (context, index) => OfferWidget(
+        offer: offers[index],
+        canBeDeleted: false,
+      ),
+      separatorBuilder: (_, __) => const Divider(),
+    );
   }
 }
