@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:shareover/model/food_category.dart';
 import 'package:shareover/pages/map/popups/subscription/category_multi_select.dart';
 
-class SubscriptionWidget extends StatelessWidget {
-  final VoidCallback close;
+import '../../router.dart';
 
-  const SubscriptionWidget({Key? key, required this.close}) : super(key: key);
+class SubscriptionWidget extends StatelessWidget {
+  final Function(PopupType)? openPopup;
+
+  const SubscriptionWidget({Key? key, required this.openPopup})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class SubscriptionWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
-              onPressed: close,
+              onPressed: () => openPopup?.call(PopupType.notification),
               backgroundColor: Colors.green,
               child: const Icon(Icons.close),
             ),

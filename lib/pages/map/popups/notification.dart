@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:shareover/components/offer.dart';
+import 'package:shareover/pages/map/router.dart';
 import 'package:shareover_api/api.dart';
 
 class NotificationWidget extends StatelessWidget {
   final VoidCallback close;
+  final Function(PopupType)? openPopup;
 
-  const NotificationWidget({Key? key, required this.close}) : super(key: key);
+  const NotificationWidget(
+      {Key? key, required this.close, required this.openPopup})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +21,12 @@ class NotificationWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            FloatingActionButton(
+              onPressed: () => openPopup?.call(PopupType.subscription),
+              backgroundColor: Colors.blue,
+              child: const Icon(Icons.settings),
+            ),
+            const Spacer(),
             FloatingActionButton(
               onPressed: close,
               backgroundColor: Colors.green,

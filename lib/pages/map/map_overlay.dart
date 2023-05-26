@@ -15,20 +15,24 @@ class MapOverlayWidget extends StatelessWidget {
         Row(
           children: [
             ElevatedButton(
-                onPressed: () {
-                  openPopup?.call(PopupType.createOffer);
-                },
-                child: const Text("create")),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.lightGreen),
+              ),
+              onPressed: () {
+                openPopup?.call(PopupType.createOffer);
+              },
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            ),
+            const Spacer(),
             ElevatedButton(
-                onPressed: () {
-                  openPopup?.call(PopupType.subscription);
-                },
-                child: const Text("subscription")),
-            ElevatedButton(
-                onPressed: () {
-                  openPopup?.call(PopupType.notification);
-                },
-                child: const Text("notification")),
+              onPressed: () {
+                openPopup?.call(PopupType.notification);
+              },
+              child: const Icon(Icons.notifications),
+            ),
           ],
         )
       ],

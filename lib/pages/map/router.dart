@@ -18,16 +18,18 @@ class _RouterWidgetState extends State<RouterWidget> {
 
   var _popupType = PopupType.closed;
 
+  openPopup(type) {
+    setState(() {
+      _popupType = type;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         SlidingMapWidget(
-          openPopup: (type) {
-            setState(() {
-              _popupType = type;
-            });
-          },
+          openPopup: openPopup,
         ),
         getFromType(_popupType),
       ],
@@ -49,11 +51,12 @@ class _RouterWidgetState extends State<RouterWidget> {
     if (popupType == PopupType.notification) {
       return NotificationWidget(
         close: closePopup,
+        openPopup: openPopup,
       );
     }
     if (popupType == PopupType.subscription) {
       return SubscriptionWidget(
-        close: closePopup,
+        openPopup: openPopup,
       );
     }
     return const SizedBox.shrink();
