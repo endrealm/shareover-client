@@ -31,8 +31,8 @@ class APIService extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(APIService oldWidget) => false;
-
+  bool updateShouldNotify(APIService oldWidget) =>
+      authorized != oldWidget.authorized;
 }
 
 class ApiServiceWrapper extends StatefulWidget {
@@ -50,13 +50,16 @@ class _ApiServiceWrapperState extends State<ApiServiceWrapper> {
 
   setToken(String token) {
     setState(() {
-      auth.accessToken(token);
+      auth.accessToken = token;
       authorized = true;
+      print("Set token");
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    print("Render token  " + authorized.toString());
+
     return APIService(
       basePath: "https://seeker.endrealm.net",
       auth: auth,

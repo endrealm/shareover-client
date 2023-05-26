@@ -31,6 +31,8 @@ class AppPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Update with" + APIService.of(context).authorized.toString());
+
     return APIService.of(context).authorized
         ? const RouterWidget()
         : const SetupWidget();

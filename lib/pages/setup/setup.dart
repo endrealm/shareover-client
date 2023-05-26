@@ -156,19 +156,15 @@ class _SetupWidgetState extends State<SetupWidget> {
   }
 
   void createAccount() {
+    checkInputs();
     formatLocation();
-    APIService.of(context).setToken(UserApi(
-        ApiClient(
-            basePath: "https://seeker.endrealm.net"
-        )
-    ).createUser(
-        CreateUserRequest(
+    var service = APIService.of(context);
+    service.userApi
+        .createUser(CreateUserRequest(
             password: passwordController.value.text,
             username: usernameController.value.text,
-            location: locationString
-        )
-    ) as String);
-    checkInputs();
+            location: locationString))
+        .then((value) => service.setToken(value!));
   }
 
   void formatLocation() {
