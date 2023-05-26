@@ -59,13 +59,31 @@ class _NotificationListState extends State<NotificationList> {
   @override
   void initState() {
     super.initState();
-    var notifications =
-        APIService.of(context).notificationApi.notificationGet(since: "12:00");
-    offerList.addAll(notifications as Iterable<Offer>);
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+
+
+    APIService.of(context).notificationApi.notificationGet().then((value) {
+      setState(() {
+        offerList.clear();
+        offerList.addAll(value!);
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    
+    if(offerList.isEmpty) {
+      return const Center(
+        child: Text("Its empty here try subscribing to a category!"),
+      );
+    }
+    
     return ListView.separated(
       shrinkWrap: true,
       itemCount: offerList.length,
