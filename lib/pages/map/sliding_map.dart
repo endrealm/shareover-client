@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:shareover/pages/map/map.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import 'map_overlay.dart';
+import 'router.dart';
+
 class SlidingMapWidget extends StatefulWidget {
-  const SlidingMapWidget({Key? key}) : super(key: key);
+  final Function(PopupType)? openPopup;
+
+  const SlidingMapWidget({Key? key, required this.openPopup}) : super(key: key);
 
   @override
   State<SlidingMapWidget> createState() => _SlidingMapWidgetState();
@@ -23,7 +29,15 @@ class _SlidingMapWidgetState extends State<SlidingMapWidget> {
         maxHeight: panelHeightOpen,
         minHeight: panelHeightClosed,
         parallaxEnabled: true,
-        parallaxOffset: 0.5,
+        parallaxOffset: 0.1,
+        body: Stack(
+          children: [
+            const MapWidget(),
+            MapOverlayWidget(
+              openPopup: widget.openPopup,
+            ),
+          ],
+        ),
         panelBuilder: (controller) => PanelWidget(
           controller: controller,
           panelController: panelController,

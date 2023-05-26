@@ -5,8 +5,6 @@ import 'package:shareover/pages/map/popups/notification.dart';
 import 'package:shareover/pages/map/popups/subscription/subscription.dart';
 import 'package:shareover/pages/map/sliding_map.dart';
 
-import 'map_overlay.dart';
-
 enum PopupType { closed, createOffer, subscription, notification }
 
 class RouterWidget extends StatefulWidget {
@@ -24,8 +22,7 @@ class _RouterWidgetState extends State<RouterWidget> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        const SlidingMapWidget(),
-        MapOverlayWidget(
+        SlidingMapWidget(
           openPopup: (type) {
             setState(() {
               _popupType = type;
