@@ -32,3 +32,7 @@ final categories = [
       displayName: "Consumer Goods",
       iconData: Icons.storefront),
 ];
+
+FoodCategory getCategory(String id) {
+  return categories.firstWhere((element) => element.categoryId == id);
+}
