@@ -14,27 +14,31 @@ class CreateOfferWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          color: Theme
-              .of(context)
-              .dialogBackgroundColor,
-          child: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        color: Theme.of(context).dialogBackgroundColor,
+        child: Column(
           children: [
-            FloatingActionButton(
-              onPressed: close,
-              backgroundColor: Colors.green,
-              child: const Icon(Icons.close),
+            Container(
+              height: 25,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                FloatingActionButton(
+                  onPressed: close,
+                  backgroundColor: Colors.green,
+                  child: const Icon(Icons.close),
+                ),
+              ],
+            ),
+            Expanded(
+              child: SizedBox.expand(child: CreateForm(close: close)),
             ),
           ],
         ),
-        Expanded(
-          child: SizedBox.expand(child: CreateForm(close: close)),
-        ),
-      ]),
-        ));
+      ),
+    );
   }
 }
 
@@ -90,7 +94,7 @@ class _CreateFormState extends State<CreateForm> {
           child: Wrap(
             spacing: 6.0,
             children: categories.map(
-                  (category) {
+              (category) {
                 var selected = category.categoryId == selectedCategory;
                 return ChoiceChip(
                   avatar: !selected ? category.icon : const SizedBox.shrink(),
@@ -158,10 +162,7 @@ class _CreateFormState extends State<CreateForm> {
         const Spacer(),
         Text(
           isDateValid ? "" : "From needs to be before to",
-          style: TextStyle(color: Theme
-              .of(context)
-              .colorScheme
-              .error),
+          style: TextStyle(color: Theme.of(context).colorScheme.error),
         ),
         Row(children: [
           Expanded(
@@ -176,7 +177,6 @@ class _CreateFormState extends State<CreateForm> {
       ],
     );
   }
-
 
   void createOffer() {
     try {

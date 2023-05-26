@@ -25,6 +25,7 @@ dependencies:
   image: ^4.0.17
   date_field: ^3.0.5
   intl: ^0.18.1
+  json_theme: ^5.0.2
   shareover_api:
     path: api/shareover_api
 
@@ -45,4 +46,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/map_style.json
+    - assets/appainter_theme.json
 

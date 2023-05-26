@@ -1,22 +1,30 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:location/location.dart';
 import 'package:shareover/pages/map/router.dart';
 import 'package:shareover/pages/setup/setup.dart';
 import 'package:shareover/services/api_service.dart';
 
+import 'package:flutter/services.dart';
+import 'dart:convert';
 import 'no_location.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
+  final themeJson = jsonDecode(themeStr);
+  final theme = ThemeDecoder.decodeThemeData(themeJson)!;
+
   if (!await enableLocationServices()) {
     log("Failed to activate location service");
     runApp(const NoLocationService());
     return;
   }
 
-  runApp(const MyApp());
+  runApp(MyApp(theme: theme));
 }
 
 Future<bool> enableLocationServices() async {
@@ -45,17 +53,15 @@ Future<bool> enableLocationServices() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final ThemeData theme;
+  const MyApp({super.key, required this.theme});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: theme,
       home: const ApiServiceWrapper(
         child: AppPage(),
       ),
