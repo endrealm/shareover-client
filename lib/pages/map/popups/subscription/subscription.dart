@@ -13,25 +13,28 @@ class SubscriptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
-        child: Container(
-      padding: const EdgeInsets.all(8),
-      color: Theme.of(context).dialogBackgroundColor,
-      child: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        color: Theme.of(context).dialogBackgroundColor,
+        child: Column(
           children: [
-            FloatingActionButton(
-              onPressed: () => openPopup?.call(PopupType.notification),
-              backgroundColor: Colors.green,
-              child: const Icon(Icons.close),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                FloatingActionButton(
+                  onPressed: () => openPopup?.call(PopupType.notification),
+                  backgroundColor: Colors.green,
+                  child: const Icon(Icons.close),
+                ),
+              ],
+            ),
+            const Expanded(
+              child: SizedBox.expand(child: SubscriptionForm()),
             ),
           ],
         ),
-        const Expanded(
-          child: SizedBox.expand(child: SubscriptionForm()),
-        ),
-      ]),
-    ));
+      ),
+    );
   }
 }
 
