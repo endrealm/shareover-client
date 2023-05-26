@@ -4,6 +4,7 @@ import 'package:shareover_api/api.dart';
 class APIService extends InheritedWidget {
   final Function(String) setToken;
   late final ApiClient client;
+  late final bool authorized;
   late final userApi = UserApi(client);
   late final offerApi = OfferApi(client);
   late final notificationApi = NotificationApi(client);
@@ -14,6 +15,7 @@ class APIService extends InheritedWidget {
     required super.child,
     required Authentication auth,
     required this.setToken,
+    required this.authorized,
   }) {
     client = ApiClient(basePath: basePath, authentication: auth);
   }
@@ -30,6 +32,7 @@ class APIService extends InheritedWidget {
 
   @override
   bool updateShouldNotify(APIService oldWidget) => false;
+
 }
 
 class ApiServiceWrapper extends StatefulWidget {
@@ -43,10 +46,12 @@ class ApiServiceWrapper extends StatefulWidget {
 
 class _ApiServiceWrapperState extends State<ApiServiceWrapper> {
   var auth = HttpBearerAuth();
+  var authorized = false;
 
   setToken(String token) {
     setState(() {
       auth.accessToken(token);
+      authorized = true;
     });
   }
 
@@ -56,6 +61,7 @@ class _ApiServiceWrapperState extends State<ApiServiceWrapper> {
       basePath: "https://seeker.endrealm.net",
       auth: auth,
       setToken: setToken,
+      authorized: authorized,
       child: widget.child,
     );
   }
