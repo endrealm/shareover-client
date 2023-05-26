@@ -12,10 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
 
-  http: ^1.0.0
+  http: ^0.13.0
   shared_preferences: ^2.0.15
   google_maps_flutter: ^2.1.8
   sliding_up_panel: ^2.0.0+1
+  openapi_generator_annotations: ^4.10.0
   image: ^4.0.17
 
   # The following adds the Cupertino Icons font to your application.
@@ -26,8 +27,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  openapi_generator: ^4.10.0
   flutter_lints: ^2.0.0
+  build_runner:
 
 flutter:
 

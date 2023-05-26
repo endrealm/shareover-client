@@ -1,0 +1,246 @@
+openapi: 3.0.0
+info:
+  title: Swagger Petstore - OpenAPI 3.1
+  description: "The api docs duh"
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: user
+  - name: offer
+  - name: notifications
+paths:
+  /user/create:
+    put:
+      tags:
+        - user
+      summary: Create a user
+      description: Create a user, returns a token
+      operationId: createUser
+      requestBody:
+        description: User data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "Gandalf der Graue"
+                  maxLength: 20
+                  minLength: 3
+                password:
+                  type: string
+                  example: "Password"
+                  maxLength: 20
+                  minLength: 3
+                location:
+                  type: string
+                  example: Franz-Mayer-Straße 1, 93053 Regensburg
+        required: true
+      responses:
+        '200':
+          description: Created account
+          content:
+            application/json:
+              schema:
+                type: string
+                example: new-auth-token
+                description: The new login token
+
+        '400':
+          description: Invalid params
+  /user/me:
+    get:
+      tags:
+        - user
+      summary: Get current user
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: string
+  /offer/list/nearby:
+    get:
+      tags:
+        - offer
+      summary: Get all offers near to current location
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OfferLocation"
+
+  /offer/list/{id}:
+    get:
+      tags:
+        - offer
+      summary: Gets all open offers for a user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Offer"
+  /offer/{id}:
+    post:
+      tags:
+        - offer
+      summary: Claim offer parts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: amount
+          in: query
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success
+  /offer:
+    put:
+      tags:
+        - offer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                units:
+                  type: integer
+                categoryId:
+                  type: string
+                product:
+                  type: string
+                from:
+                  type: string
+                  description: "Date string"
+                  example: "iso-date-string"
+                to:
+                  type: string
+                  description: "Date string"
+                  example: "iso-date-string"
+
+      responses:
+        200:
+          description: Success
+
+  /notification:
+    post:
+      description: "Set notification settings"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                range:
+                  type: integer
+                  description: "Range in meters to receive notifications from home"
+                categories:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        200:
+          description: "Success"
+    get:
+      description: "Get all unread user notifications"
+      parameters:
+        - name: "since"
+          in: query
+          required: false
+          schema:
+            type: string
+            description: "iso time stamp since when to check for notifications"
+      responses:
+        200:
+          description: "Returns all notifications"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Offer"
+    delete:
+      description: "Delete all notifications"
+      responses:
+        200:
+          description: "Success"
+  /notification/{id}:
+    delete:
+      description: "Delete a notification"
+      parameters:
+        - name: "id"
+          in: path
+          required: true
+          schema:
+            type: string
+            description: "Id of notification to remove"
+      responses:
+        200:
+          description: "success"
+        404:
+          description: "notification not found"
+
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    OfferLocation:
+      type: object
+      properties:
+        id:
+          type: string
+        lat:
+          type: number
+        lon:
+          type: number
+    Offer:
+      type: object
+      properties:
+        id:
+          type: string
+        ownerId:
+          type: string
+        units:
+          type: integer
+        categoryId:
+          type: string
+        product:
+          type: string
+        from:
+          type: string
+          description: "Date string"
+          example: "iso-date-string"
+        to:
+          type: string
+          description: "Date string"
+          example: "iso-date-string"
+
+security:
+  - bearerAuth: []
