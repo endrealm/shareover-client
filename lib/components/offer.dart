@@ -19,15 +19,20 @@ class OfferWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var category = getCategory(offer.categoryId!);
+    var theme = Theme.of(context);
     return ListTile(
       onTap: onClick,
       leading: category.icon,
-      title: Text(category.displayName),
+      title:
+          Text(category.displayName, style: TextStyle(color: theme.colorScheme.onBackground)),
       subtitle: Text(
-          "${offer.units}x ${offer.product} \n ${offer.from} - ${offer.to} Uhr"),
+          "${offer.units}x ${offer.product} \n ${offer.from} - ${offer.to} Uhr", style: TextStyle(color: theme.colorScheme.onBackground)),
       trailing: canBeDeleted
           ? IconButton(
-              icon: const Icon(Icons.delete),
+              icon: Icon(
+                Icons.delete,
+                color: theme.colorScheme.error,
+              ),
               onPressed: onDelete,
             )
           : const SizedBox.shrink(),

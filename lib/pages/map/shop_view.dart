@@ -15,7 +15,7 @@ class ShopView extends StatefulWidget {
 
 class _ShopViewState extends State<ShopView> {
 
-  late List<Offer> offers;
+  List<Offer> offers = [];
 
   @override
   void didChangeDependencies() {
@@ -23,6 +23,7 @@ class _ShopViewState extends State<ShopView> {
 
     APIService.of(context).offerApi.offerListIdGet(int.parse(widget.location.id!)).then((value) {
       setState(() {
+        print("offers");
         offers = value!;
       });
     });
@@ -30,13 +31,11 @@ class _ShopViewState extends State<ShopView> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: offers.length,
-      itemBuilder: (context, index) => OfferWidget(
-        offer: offers[index],
+    return Column(
+      children: offers.map((e) => OfferWidget(
+        offer: e,
         canBeDeleted: false,
-      ),
-      separatorBuilder: (_, __) => const Divider(),
+      )).toList(),
     );
   }
 }
