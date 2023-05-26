@@ -33,7 +33,7 @@ void main() {
 
     // Get all offers near to current location
     //
-    //Future<List<OfferLocation>> offerListNearbyGet() async
+    //Future<List<OfferLocation>> offerListNearbyGet(num lat, num lng) async
     test('test offerListNearbyGet', () async {
       // TODO
     });

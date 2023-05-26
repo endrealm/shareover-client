@@ -128,7 +128,13 @@ class OfferApi {
   /// Get all offers near to current location
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> offerListNearbyGetWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [num] lat (required):
+  ///
+  /// * [num] lng (required):
+  Future<Response> offerListNearbyGetWithHttpInfo(num lat, num lng,) async {
     // ignore: prefer_const_declarations
     final path = r'/offer/list/nearby';
 
@@ -138,6 +144,9 @@ class OfferApi {
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
+
+      queryParams.addAll(_queryParams('', 'lat', lat));
+      queryParams.addAll(_queryParams('', 'lng', lng));
 
     const contentTypes = <String>[];
 
@@ -154,8 +163,14 @@ class OfferApi {
   }
 
   /// Get all offers near to current location
-  Future<List<OfferLocation>?> offerListNearbyGet() async {
-    final response = await offerListNearbyGetWithHttpInfo();
+  ///
+  /// Parameters:
+  ///
+  /// * [num] lat (required):
+  ///
+  /// * [num] lng (required):
+  Future<List<OfferLocation>?> offerListNearbyGet(num lat, num lng,) async {
+    final response = await offerListNearbyGetWithHttpInfo(lat, lng,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }

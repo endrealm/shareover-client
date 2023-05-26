@@ -111,7 +111,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **offerListNearbyGet**
-> List<OfferLocation> offerListNearbyGet()
+> List<OfferLocation> offerListNearbyGet(lat, lng)
 
 Get all offers near to current location
 
@@ -126,9 +126,11 @@ import 'package:shareover_api/api.dart';
 //defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
 
 final api_instance = OfferApi();
+final lat = 8.14; // num | 
+final lng = 8.14; // num | 
 
 try {
-    final result = api_instance.offerListNearbyGet();
+    final result = api_instance.offerListNearbyGet(lat, lng);
     print(result);
 } catch (e) {
     print('Exception when calling OfferApi->offerListNearbyGet: $e\n');
@@ -136,7 +138,11 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **lat** | **num**|  | 
+ **lng** | **num**|  | 
 
 ### Return type
 
