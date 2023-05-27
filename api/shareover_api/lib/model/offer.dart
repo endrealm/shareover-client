@@ -163,8 +163,8 @@ class Offer {
       }());
 
       return Offer(
-        id: mapValueOfType<String>(json, r'id'),
-        ownerId: mapValueOfType<String>(json, r'ownerId'),
+        id: mapValueOfType<int>(json, r'id').toString(),
+        ownerId: mapValueOfType<int>(json, r'ownerId').toString(),
         units: mapValueOfType<int>(json, r'units'),
         categoryId: mapValueOfType<String>(json, r'categoryId'),
         product: mapValueOfType<String>(json, r'product'),

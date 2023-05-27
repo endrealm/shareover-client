@@ -8,7 +8,7 @@ import 'panel_widget.dart';
 import 'router.dart';
 
 class SlidingMapWidget extends StatefulWidget {
-  final Function(PopupType)? openPopup;
+  final Function(PopupType, Object?)? openPopup;
 
   const SlidingMapWidget({Key? key, required this.openPopup}) : super(key: key);
 
@@ -48,6 +48,7 @@ class _SlidingMapWidgetState extends State<SlidingMapWidget> {
         panelBuilder: (controller) => location == null
             ? Container()
             : PanelWidget(
+                openPopup: widget.openPopup,
                 controller: controller,
                 panelController: panelController,
                 location: location!,

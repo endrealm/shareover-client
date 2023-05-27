@@ -7,7 +7,7 @@ import 'package:shareover_api/api.dart';
 
 class NotificationWidget extends StatelessWidget {
   final VoidCallback close;
-  final Function(PopupType)? openPopup;
+  final Function(PopupType, Object?)? openPopup;
 
   const NotificationWidget(
       {Key? key, required this.close, required this.openPopup})
@@ -27,7 +27,7 @@ class NotificationWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
-              onPressed: () => openPopup?.call(PopupType.subscription),
+              onPressed: () => openPopup?.call(PopupType.subscription, null),
               backgroundColor: Colors.blue,
               child: const Icon(Icons.settings),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shareover/pages/map/router.dart';
 import 'package:shareover/pages/map/shop_view.dart';
 import 'package:shareover_api/api.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -7,12 +8,14 @@ class PanelWidget extends StatelessWidget {
   final ScrollController controller;
   final PanelController panelController;
   final OfferLocation location;
+  final Function(PopupType, Object?)? openPopup;
 
   const PanelWidget({
     Key? key,
     required this.controller,
     required this.panelController,
     required this.location,
+    required this.openPopup,
   }) : super(key: key);
 
   @override
@@ -53,6 +56,7 @@ class PanelWidget extends StatelessWidget {
           children: <Widget>[
             ShopView(
               location: location,
+              openPopup: openPopup,
             ),
           ],
         ),

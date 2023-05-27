@@ -5,7 +5,7 @@ import 'package:shareover/pages/map/popups/subscription/category_multi_select.da
 import '../../router.dart';
 
 class SubscriptionWidget extends StatelessWidget {
-  final Function(PopupType)? openPopup;
+  final Function(PopupType, Object?)? openPopup;
 
   const SubscriptionWidget({Key? key, required this.openPopup})
       : super(key: key);
@@ -22,7 +22,7 @@ class SubscriptionWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 FloatingActionButton(
-                  onPressed: () => openPopup?.call(PopupType.notification),
+                  onPressed: () => openPopup?.call(PopupType.notification, null),
                   backgroundColor: Colors.green,
                   child: const Icon(Icons.close),
                 ),

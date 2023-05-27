@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'router.dart';
 
 class MapOverlayWidget extends StatelessWidget {
-  final Function(PopupType)? openPopup;
+  final Function(PopupType, Object?)? openPopup;
 
   const MapOverlayWidget({Key? key, this.openPopup}) : super(key: key);
 
@@ -22,7 +22,7 @@ class MapOverlayWidget extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.all(Colors.lightGreen),
                 ),
                 onPressed: () {
-                  openPopup?.call(PopupType.createOffer);
+                  openPopup?.call(PopupType.createOffer, null);
                 },
                 child: const Icon(
                   Icons.add,
@@ -32,7 +32,7 @@ class MapOverlayWidget extends StatelessWidget {
               const Spacer(),
               ElevatedButton(
                 onPressed: () {
-                  openPopup?.call(PopupType.notification);
+                  openPopup?.call(PopupType.notification, null);
                 },
                 child: const Icon(Icons.notifications),
               ),
