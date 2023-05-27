@@ -73,9 +73,11 @@ class _SlidingMapWidgetState extends State<SlidingMapWidget> {
         borderRadius: roundBorder
             ? const BorderRadius.vertical(top: Radius.circular(30))
             : BorderRadius.zero,
-        onPanelSlide: (position) => setState(() {
-          roundBorder = position < 0.87;
-        }),
+        onPanelSlide: (position) => setState(
+          () {
+            roundBorder = position < 0.87;
+          },
+        ),
       ),
     );
   }

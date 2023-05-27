@@ -46,113 +46,138 @@ class _SetupWidgetState extends State<SetupWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-      child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-        Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
             padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
             child: Align(
               alignment: Alignment.bottomLeft,
               child: RichText(
-                  textAlign: TextAlign.end,
-                  text: const TextSpan(children: <TextSpan>[
+                textAlign: TextAlign.end,
+                text: TextSpan(
+                  children: <TextSpan>[
                     TextSpan(
-                        text: Constants.textSignInTitle,
-                        style: TextStyle(
-                          color: Colors.purple,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 40.0,
-                        )),
-                  ])),
-            )),
-        TextFormField(
-          keyboardType: TextInputType.name,
-          controller: usernameController,
-          decoration: const InputDecoration(
-            labelText: "Username",
-            border: OutlineInputBorder(),
+                      text: Constants.textSignInTitle,
+                      style: TextStyle(
+                        //color: Color(0xFF384B42),
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 40.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
-        ),
-        Container(
-          height: 5,
-        ),
-        TextFormField(
+          TextFormField(
+            keyboardType: TextInputType.name,
+            controller: usernameController,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
+            decoration: const InputDecoration(
+              labelText: "Username",
+              border: OutlineInputBorder(),
+            ),
+          ),
+          Container(
+            height: 5,
+          ),
+          TextFormField(
             controller: passwordController,
             obscureText: true,
             keyboardType: TextInputType.visiblePassword,
             decoration: const InputDecoration(
               labelText: "Password",
               border: OutlineInputBorder(),
-            )),
-        Container(height: 25),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            TextFormField(
+            ),
+          ),
+          Container(height: 25),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TextFormField(
                 keyboardType: TextInputType.streetAddress,
                 controller: streetController,
                 decoration: const InputDecoration(
                   labelText: "Street",
                   border: OutlineInputBorder(),
-                )),
-            Container(height: 5),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    keyboardType: TextInputType.text,
-                    controller: cityController,
-                    decoration: const InputDecoration(
-                      labelText: "City",
-                      border: OutlineInputBorder(),
+                ),
+              ),
+              Container(height: 5),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      controller: cityController,
+                      decoration: const InputDecoration(
+                        labelText: "City",
+                        border: OutlineInputBorder(),
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
+                  Expanded(
                     child: TextFormField(
-                  keyboardType: TextInputType.text,
-                  controller: countryController,
-                  decoration: const InputDecoration(
-                    labelText: "Country",
-                    border: OutlineInputBorder(),
+                      keyboardType: TextInputType.text,
+                      controller: countryController,
+                      decoration: const InputDecoration(
+                        labelText: "Country",
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
                   ),
-                ))
-              ],
-            ),
-          ],
-        ),
-        Container(height: 15),
-        Row(
-          children: [
-            Checkbox(
-              checkColor: Theme.of(context).colorScheme.background,
-              fillColor:
-                  MaterialStateColor.resolveWith((states) => Colors.purple),
-              value: isChecked,
-              onChanged: (bool? value) {
-                setState(() {
-                  isChecked = value!;
-                  checkInputs();
-                });
-              },
-            ),
-            const Text("I'm over 16 years old."),
-          ],
-        ),
-        Container(height: 15),
-        TextButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(
-                    Theme.of(context).colorScheme.background),
+                ],
+              ),
+            ],
+          ),
+          Container(height: 15),
+          Row(
+            children: [
+              Checkbox(
+                checkColor: Theme.of(context).colorScheme.onPrimaryContainer,
+                fillColor: MaterialStateColor.resolveWith(
+                    (states) => Theme.of(context).colorScheme.primary),
+                value: isChecked,
+                onChanged: (bool? value) {
+                  setState(
+                    () {
+                      isChecked = value!;
+                      checkInputs();
+                    },
+                  );
+                },
+              ),
+              const Text("I'm over 16 years old."),
+            ],
+          ),
+          Container(height: 15),
+          TextButton(
+              style: ButtonStyle(
                 backgroundColor: isChecked
-                    ? MaterialStateProperty.all(Colors.purple)
-                    : MaterialStateProperty.all(
-                        Theme.of(context).colorScheme.background)),
-            onPressed: () {
-              setState(() {
-                createAccount();
-              });
-            },
-            child: const Text("Submit"))
-      ]),
+                    ? MaterialStateProperty.all(Theme.of(context)
+                        .colorScheme
+                        .secondary) //Theme.of(context).colorScheme.primary
+                    : MaterialStateProperty.all(Theme.of(context)
+                        .colorScheme
+                        .scrim), //Theme.of(context).colorScheme.onPrimaryContainer
+              ),
+              onPressed: () {
+                setState(
+                  () {
+                    createAccount();
+                  },
+                );
+              },
+              child: Text(
+                "Submit",
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer),
+              ))
+        ],
+      ),
     );
   }
 

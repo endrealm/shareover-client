@@ -15,18 +15,21 @@ class SubscriptionWidget extends StatelessWidget {
     return SizedBox.expand(
       child: Container(
         padding: const EdgeInsets.all(8),
-        color: Theme.of(context).dialogBackgroundColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                FloatingActionButton(
-                  onPressed: () => openPopup?.call(PopupType.notification, null),
-                  backgroundColor: Colors.green,
-                  child: const Icon(Icons.close),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 25, 0, 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  FloatingActionButton(
+                    onPressed: () =>
+                        openPopup?.call(PopupType.notification, null),
+                    child: const Icon(Icons.close),
+                  ),
+                ],
+              ),
             ),
             const Expanded(
               child: SizedBox.expand(child: SubscriptionForm()),
@@ -67,6 +70,9 @@ class _SubscriptionFormState extends State<SubscriptionForm> {
               selectedCategories.remove(categoryId);
             });
           },
+        ),
+        Container(
+          height: 30,
         ),
         const Text("Distance in meter"),
         _Slider(

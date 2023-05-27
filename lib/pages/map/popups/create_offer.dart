@@ -16,7 +16,7 @@ class CreateOfferWidget extends StatelessWidget {
     return SizedBox.expand(
       child: Container(
         padding: const EdgeInsets.all(8),
-        color: Theme.of(context).dialogBackgroundColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Column(
           children: [
             Container(
@@ -27,7 +27,6 @@ class CreateOfferWidget extends StatelessWidget {
               children: [
                 FloatingActionButton(
                   onPressed: close,
-                  backgroundColor: Colors.green,
                   child: const Icon(Icons.close),
                 ),
               ],
@@ -96,68 +95,84 @@ class _CreateFormState extends State<CreateForm> {
             children: categories.map(
               (category) {
                 var selected = category.categoryId == selectedCategory;
-                return ChoiceChip(
-                  avatar: !selected ? category.icon : const SizedBox.shrink(),
-                  label: Text(category.displayName),
-                  selected: selected,
-                  onSelected: (bool selected) {
-                    setState(() {
-                      selectedCategory = category.categoryId;
-                    });
-                  },
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 6, 0),
+                  child: ChoiceChip(
+                      backgroundColor:
+                          Theme.of(context).colorScheme.tertiaryContainer,
+                      selectedColor: Theme.of(context).primaryColor,
+                      avatar:
+                          !selected ? category.icon : const SizedBox.shrink(),
+                      label: Text(
+                        category.displayName,
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).colorScheme.surfaceVariant),
+                      ),
+                      selected: selected,
+                      onSelected: (bool selected) {
+                        setState(
+                          () {
+                            selectedCategory = category.categoryId;
+                          },
+                        );
+                      }),
                 );
               },
             ).toList(),
           ),
         ),
-        Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                    child: TextField(
-                      controller: _controller,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Product Name",
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                      child: TextField(
+                        controller: _controller,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "Product Name",
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: TextField(
-                    keyboardType: TextInputType.number,
-                    controller: _amountController,
-                    // onTapOutside: (_) {
-                    //   _amountController.text = int.parse(_amountController.text).toString();
-                    // },
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Amount",
+                  Expanded(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      controller: _amountController,
+                      // onTapOutside: (_) {
+                      //   _amountController.text = int.parse(_amountController.text).toString();
+                      // },
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Amount",
+                      ),
                     ),
                   ),
-                )
-              ],
-            ),
-            _FormattedDate(
-                label: "available from",
-                onChange: (value) {
-                  setState(() {
-                    from = value;
-                  });
-                }),
-            _FormattedDate(
-                label: "available to",
-                onChange: (value) {
-                  setState(() {
-                    to = value;
-                  });
-                }),
-          ],
+                ],
+              ),
+              _FormattedDate(
+                  label: "available from",
+                  onChange: (value) {
+                    setState(() {
+                      from = value;
+                    });
+                  }),
+              _FormattedDate(
+                  label: "available to",
+                  onChange: (value) {
+                    setState(() {
+                      to = value;
+                    });
+                  }),
+            ],
+          ),
         ),
         const Spacer(),
         Text(
@@ -208,8 +223,8 @@ class _FormattedDate extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
       child: DateTimeFormField(
         decoration: InputDecoration(
-          hintStyle: const TextStyle(color: Colors.black54),
-          errorStyle: const TextStyle(color: Colors.redAccent),
+          //hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+          //errorStyle: const TextStyle(color: Colors.redAccent),
           border: const OutlineInputBorder(),
           suffixIcon: const Icon(Icons.event_note),
           labelText: label,
