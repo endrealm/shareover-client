@@ -36,6 +36,7 @@ part 'model/notification_post_request.dart';
 part 'model/offer.dart';
 part 'model/offer_location.dart';
 part 'model/offer_put_request.dart';
+part 'model/user_profile.dart';
 
 
 const _delimiters = {'csv': ',', 'ssv': ' ', 'tsv': '\t', 'pipes': '|'};

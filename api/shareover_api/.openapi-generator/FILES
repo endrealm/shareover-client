@@ -11,6 +11,7 @@ doc/OfferApi.md
 doc/OfferLocation.md
 doc/OfferPutRequest.md
 doc/UserApi.md
+doc/UserProfile.md
 git_push.sh
 lib/api.dart
 lib/api/notification_api.dart
@@ -29,6 +30,7 @@ lib/model/notification_post_request.dart
 lib/model/offer.dart
 lib/model/offer_location.dart
 lib/model/offer_put_request.dart
+lib/model/user_profile.dart
 pubspec.yaml
 test/create_user_request_test.dart
 test/notification_api_test.dart
@@ -38,3 +40,4 @@ test/offer_location_test.dart
 test/offer_put_request_test.dart
 test/offer_test.dart
 test/user_api_test.dart
+test/user_profile_test.dart

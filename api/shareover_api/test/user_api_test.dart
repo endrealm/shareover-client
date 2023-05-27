@@ -26,6 +26,13 @@ void main() {
       // TODO
     });
 
+    // Get a users public info by id
+    //
+    //Future<UserProfile> userIdGet(num id) async
+    test('test userIdGet', () async {
+      // TODO
+    });
+
     // Get current user
     //
     //Future<String> userMeGet() async

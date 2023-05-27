@@ -71,6 +71,7 @@ Class | Method | HTTP request | Description
 *OfferApi* | [**offerListNearbyGet**](doc\/OfferApi.md#offerlistnearbyget) | **GET** /offer/list/nearby | Get all offers near to current location
 *OfferApi* | [**offerPut**](doc\/OfferApi.md#offerput) | **PUT** /offer | 
 *UserApi* | [**createUser**](doc\/UserApi.md#createuser) | **PUT** /user/create | Create a user
+*UserApi* | [**userIdGet**](doc\/UserApi.md#useridget) | **GET** /user/{id} | Get a users public info by id
 *UserApi* | [**userMeGet**](doc\/UserApi.md#usermeget) | **GET** /user/me | Get current user
 
 
@@ -81,6 +82,7 @@ Class | Method | HTTP request | Description
  - [Offer](doc\/Offer.md)
  - [OfferLocation](doc\/OfferLocation.md)
  - [OfferPutRequest](doc\/OfferPutRequest.md)
+ - [UserProfile](doc\/UserProfile.md)
 
 
 ## Documentation For Authorization

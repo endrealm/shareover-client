@@ -191,6 +191,8 @@ class ApiClient {
           return OfferLocation.fromJson(value);
         case 'OfferPutRequest':
           return OfferPutRequest.fromJson(value);
+        case 'UserProfile':
+          return UserProfile.fromJson(value);
         default:
           dynamic match;
           if (value is List && (match = _regList.firstMatch(targetType)?.group(1)) != null) {

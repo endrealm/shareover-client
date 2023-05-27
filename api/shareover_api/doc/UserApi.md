@@ -10,6 +10,7 @@ All URIs are relative to *http://localhost:3000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createUser**](UserApi.md#createuser) | **PUT** /user/create | Create a user
+[**userIdGet**](UserApi.md#useridget) | **GET** /user/{id} | Get a users public info by id
 [**userMeGet**](UserApi.md#usermeget) | **GET** /user/me | Get current user
 
 
@@ -58,6 +59,53 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **userIdGet**
+> UserProfile userIdGet(id)
+
+Get a users public info by id
+
+### Example
+```dart
+import 'package:shareover_api/api.dart';
+// TODO Configure HTTP Bearer authorization: bearerAuth
+// Case 1. Use String Token
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken('YOUR_ACCESS_TOKEN');
+// Case 2. Use Function which generate token.
+// String yourTokenGeneratorFunction() { ... }
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearerAuth').setAccessToken(yourTokenGeneratorFunction);
+
+final api_instance = UserApi();
+final id = 8.14; // num | 
+
+try {
+    final result = api_instance.userIdGet(id);
+    print(result);
+} catch (e) {
+    print('Exception when calling UserApi->userIdGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **num**|  | 
+
+### Return type
+
+[**UserProfile**](UserProfile.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
