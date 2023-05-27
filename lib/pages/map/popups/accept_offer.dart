@@ -7,9 +7,14 @@ import 'package:shareover_api/api.dart';
 
 class AcceptOffer extends StatefulWidget {
   final Function(PopupType type, Object? popupData) openPopup;
+  final VoidCallback reloadShop;
   final Offer offer;
 
-  const AcceptOffer({Key? key, required this.openPopup, required this.offer})
+  const AcceptOffer(
+      {Key? key,
+      required this.openPopup,
+      required this.offer,
+      required this.reloadShop})
       : super(key: key);
 
   @override
@@ -99,6 +104,7 @@ class _Popup extends State<AcceptOffer> {
                       APIService.of(context).offerApi.offerIdPost(
                           int.parse(widget.offer.id!),
                           amount: int.parse(amountController.text));
+                      widget.reloadShop();
                       widget.openPopup.call(PopupType.closed, null);
                     },
                     style: ButtonStyle(

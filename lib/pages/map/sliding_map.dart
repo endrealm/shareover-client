@@ -9,8 +9,11 @@ import 'router.dart';
 
 class SlidingMapWidget extends StatefulWidget {
   final Function(PopupType, Object?)? openPopup;
+  final bool toggleShop;
 
-  const SlidingMapWidget({Key? key, required this.openPopup}) : super(key: key);
+  const SlidingMapWidget(
+      {Key? key, required this.openPopup, required this.toggleShop})
+      : super(key: key);
 
   @override
   State<SlidingMapWidget> createState() => _SlidingMapWidgetState();
@@ -20,7 +23,19 @@ class _SlidingMapWidgetState extends State<SlidingMapWidget> {
   final panelController = PanelController();
   OfferLocation? location;
 
+  var toggleShop = false;
   var roundBorder = true;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (toggleShop == widget.toggleShop) return;
+    toggleShop = widget.toggleShop;
+    setState(() {
+      panelController.close();
+      location = null;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +50,13 @@ class _SlidingMapWidgetState extends State<SlidingMapWidget> {
         parallaxOffset: 0.1,
         body: Stack(
           children: [
-            MapWidget(onPlaceChange: (loc) {
-              setState(() {
-                location = loc;
-              });
-            }),
+            MapWidget(
+              onPlaceChange: (loc) {
+                setState(() {
+                  location = loc;
+                });
+              },
+            ),
             MapOverlayWidget(
               openPopup: widget.openPopup,
             ),

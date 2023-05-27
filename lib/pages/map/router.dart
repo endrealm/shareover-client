@@ -17,9 +17,9 @@ class RouterWidget extends StatefulWidget {
 }
 
 class _RouterWidgetState extends State<RouterWidget> {
-
   var _popupType = PopupType.closed;
   Object? _popupData;
+  var toggleShop = false;
 
   openPopup(PopupType type, Object? popupData) {
     setState(() {
@@ -34,6 +34,7 @@ class _RouterWidgetState extends State<RouterWidget> {
       children: [
         SlidingMapWidget(
           openPopup: openPopup,
+          toggleShop: toggleShop,
         ),
         getFromType(_popupType),
       ],
@@ -65,6 +66,9 @@ class _RouterWidgetState extends State<RouterWidget> {
     }
     if (popupType == PopupType.acceptOffer) {
       return AcceptOffer(
+        reloadShop: () => setState(() {
+          toggleShop = !toggleShop;
+        }),
         openPopup: openPopup,
         offer: _popupData as Offer,
       );
@@ -72,4 +76,3 @@ class _RouterWidgetState extends State<RouterWidget> {
     return const SizedBox.shrink();
   }
 }
-
