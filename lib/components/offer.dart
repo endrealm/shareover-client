@@ -8,6 +8,7 @@ class OfferWidget extends StatelessWidget {
   final bool canBeDeleted;
   final VoidCallback? onDelete;
   final VoidCallback? onClick;
+  static final DateFormat formatter = DateFormat('HH:mm');
 
   const OfferWidget({
     Key? key,
@@ -19,7 +20,7 @@ class OfferWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateFormat formatter = DateFormat('dd hh:mm');
+    DateFormat formatter = DateFormat('HH:mm');
  //   var from = formatter.format(offer.from);
    // var to = formatter.format(offer.to as DateTime);
 
@@ -32,7 +33,7 @@ class OfferWidget extends StatelessWidget {
       Text(category.displayName,
           style: TextStyle(color: theme.colorScheme.onBackground)),
       subtitle: Text(
-          "${offer.units}x ${offer.product} \n ${offer.from} - ${offer.to} Uhr",
+          "${offer.units}x ${offer.product} \n ${formatter.format(DateTime.parse(offer.from!))} - ${formatter.format(DateTime.parse(offer.to!))} Uhr",
           style: TextStyle(color: theme.colorScheme.onBackground)),
       trailing: canBeDeleted
           ? IconButton(
