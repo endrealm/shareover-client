@@ -20,17 +20,29 @@ class CategoryMultiSelectWidget extends StatelessWidget {
       children: categories.map(
         (category) {
           var selected = selectedCategories.contains(category.categoryId);
-          return ChoiceChip(
-            avatar: !selected ? category.icon : const SizedBox.shrink(),
-            label: Text(category.displayName),
-            selected: selected,
-            onSelected: (_) {
-              if (selected) {
-                removeCategory(category.categoryId);
-                return;
-              }
-              addCategory(category.categoryId);
-            },
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 3, 0),
+            child: ChoiceChip(
+              backgroundColor: Theme.of(context).colorScheme.tertiary,
+              selectedColor: Theme.of(context).colorScheme.primary,
+              iconTheme: IconThemeData(
+                  weight: 1,
+                  color: Theme.of(context).colorScheme.surfaceVariant),
+              avatar: !selected ? category.icon : const SizedBox.shrink(),
+              label: Text(
+                category.displayName,
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.surfaceVariant),
+              ),
+              selected: selected,
+              onSelected: (_) {
+                if (selected) {
+                  removeCategory(category.categoryId);
+                  return;
+                }
+                addCategory(category.categoryId);
+              },
+            ),
           );
         },
       ).toList(),

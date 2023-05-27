@@ -13,14 +13,16 @@ class MapOverlayWidget extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 25,
+            height: 30,
           ),
           Row(
             children: [
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.lightGreen),
-                ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ))),
                 onPressed: () {
                   openPopup?.call(PopupType.createOffer, null);
                 },
@@ -31,6 +33,11 @@ class MapOverlayWidget extends StatelessWidget {
               ),
               const Spacer(),
               ElevatedButton(
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ))),
                 onPressed: () {
                   openPopup?.call(PopupType.notification, null);
                 },

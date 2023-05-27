@@ -16,34 +16,36 @@ class NotificationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
-        child: Container(
-      padding: const EdgeInsets.all(8),
-      color: Theme.of(context).dialogBackgroundColor,
-      child: Column(children: [
-        Container(
-          height: 25,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: Column(
           children: [
-            FloatingActionButton(
-              onPressed: () => openPopup?.call(PopupType.subscription, null),
-              backgroundColor: Colors.blue,
-              child: const Icon(Icons.settings),
+            Container(
+              height: 25,
             ),
-            const Spacer(),
-            FloatingActionButton(
-              onPressed: close,
-              backgroundColor: Colors.green,
-              child: const Icon(Icons.close),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                FloatingActionButton(
+                  onPressed: () =>
+                      openPopup?.call(PopupType.subscription, null),
+                  child: const Icon(Icons.saved_search),
+                ),
+                const Spacer(),
+                FloatingActionButton(
+                  onPressed: close,
+                  child: const Icon(Icons.close),
+                ),
+              ],
+            ),
+            const Expanded(
+              child: SizedBox.expand(child: NotificationList()),
             ),
           ],
         ),
-        const Expanded(
-          child: SizedBox.expand(child: NotificationList()),
-        ),
-      ]),
-    ));
+      ),
+    );
   }
 }
 
@@ -57,8 +59,6 @@ class NotificationList extends StatefulWidget {
 class _NotificationListState extends State<NotificationList> {
   final List<Offer> offerList = [];
 
-
-
   @override
   void initState() {
     super.initState();
@@ -67,7 +67,6 @@ class _NotificationListState extends State<NotificationList> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
 
     APIService.of(context).notificationApi.notificationGet().then((value) {
       setState(() {
@@ -85,7 +84,7 @@ class _NotificationListState extends State<NotificationList> {
         child: Text("Its empty here try subscribing to a category!"),
       );
     }
-    
+
     return ListView.separated(
       shrinkWrap: true,
       itemCount: offerList.length,

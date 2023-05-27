@@ -1,14 +1,14 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:location/location.dart';
 import 'package:shareover/pages/map/router.dart';
 import 'package:shareover/pages/setup/setup.dart';
 import 'package:shareover/services/api_service.dart';
 
-import 'package:flutter/services.dart';
-import 'dart:convert';
 import 'no_location.dart';
 
 void main() async {
@@ -54,13 +54,14 @@ Future<bool> enableLocationServices() async {
 
 class MyApp extends StatelessWidget {
   final ThemeData theme;
+
   const MyApp({super.key, required this.theme});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'ShareOver',
       theme: theme,
       home: const ApiServiceWrapper(
         child: AppPage(),
@@ -76,7 +77,6 @@ class AppPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).colorScheme.background,
       body: APIService.of(context).authorized
           ? const RouterWidget()
           : const SetupWidget(),
