@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shareover/components/offer.dart';
-import 'package:shareover/pages/map/popups/accept_offer.dart';
 import 'package:shareover/pages/map/router.dart';
 import 'package:shareover_api/api.dart';
 
@@ -19,14 +18,27 @@ class ShopView extends StatefulWidget {
 class _ShopViewState extends State<ShopView> {
 
   List<Offer> offers = [];
+  UserProfile? profile;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    APIService.of(context).offerApi.offerListIdGet(int.parse(widget.location.id!)).then((value) {
+    APIService.of(context)
+        .offerApi
+        .offerListIdGet(int.parse(widget.location.id!))
+        .then((value) {
       setState(() {
         offers = value!;
+      });
+    });
+
+    APIService.of(context)
+        .userApi
+        .userIdGet(int.parse(widget.location.id!))
+        .then((value) {
+      setState(() {
+        profile = value;
       });
     });
   }
@@ -34,10 +46,13 @@ class _ShopViewState extends State<ShopView> {
   @override
   Widget build(BuildContext context) {
     var parts = <Widget>[];
+    parts.add(Text(profile?.username ?? "loading"));
+    parts.add(Text(profile?.location ?? "loading"));
+
     int index = -1;
     for (var offer in offers) {
       index++;
-      if(index != 0) {
+      if (index != 0) {
         parts.add(const Divider());
       }
 
